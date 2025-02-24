@@ -155,7 +155,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[#14F195]">→</span>
-                  <span className="text-gray-200">1% used for auto token burn</span>
+                  <span className="text-gray-200">1% used for team</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[#00C2FF]">→</span>
