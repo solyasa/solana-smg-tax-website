@@ -9,28 +9,28 @@ export default function RewardsCalculator() {
   const totalSupply = 1_000_000_000 // 1 billion total supply
 
   // Calculate rewards
-  const dailyRewardsPool = volume * 0.04 // 4% of volume
+  const dailyRewardsPool = volume * 0.05 // 5% of volume (4% rewards + 1% burn)
   const tokenBurnAmount = volume * 0.01 // 1% of volume
-  const dailyEarnings = holdings > 0 ? (holdings / totalSupply) * dailyRewardsPool : 0
+  const dailyEarnings = holdings > 0 ? (dailyRewardsPool - tokenBurnAmount) * (holdings / totalSupply) : 0
 
   // Format currency
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     }).format(value)
   }
 
   return (
     <div className="space-y-6">
-      <h3 className="text-2xl font-bold bg-gradient-to-r from-[#9945FF] to-[#14F195] text-transparent bg-clip-text">
+      <h3 className="text-2xl font-oswald uppercase font-bold bg-gradient-to-r from-[#9945FF] to-[#14F195] text-transparent bg-clip-text">
         Rewards Calculator
       </h3>
       <div className="space-y-4">
         <div>
-          <label className="text-sm text-gray-400 block mb-2">24h Volume (USD)</label>
+          <label className="text-sm font-medium text-gray-400 block mb-2">24h Volume (USD)</label>
           <Input
             type="number"
             placeholder="0"
@@ -40,7 +40,7 @@ export default function RewardsCalculator() {
           />
         </div>
         <div>
-          <label className="text-sm text-gray-400 block mb-2">Your $SMG Holdings</label>
+          <label className="text-sm font-medium text-gray-400 block mb-2">Your $SMG Holdings</label>
           <Input
             type="number"
             placeholder="0"
@@ -53,17 +53,17 @@ export default function RewardsCalculator() {
 
       <div className="space-y-4 pt-4">
         <div>
-          <div className="text-xl font-semibold mb-2">Daily Rewards Pool:</div>
+          <div className="text-xl font-oswald uppercase font-semibold mb-2">Daily Rewards Pool:</div>
           <div className="text-[#14F195] text-2xl font-bold">{formatCurrency(dailyRewardsPool)}</div>
         </div>
 
         <div>
-          <div className="text-xl font-semibold mb-2">Your Daily Earnings:</div>
+          <div className="text-xl font-oswald uppercase font-semibold mb-2">Your Daily Earnings:</div>
           <div className="text-[#14F195] text-2xl font-bold">{formatCurrency(dailyEarnings)}</div>
         </div>
 
         <div>
-          <div className="text-xl font-semibold mb-2">Token Burn Amount:</div>
+          <div className="text-xl font-oswald uppercase font-semibold mb-2">Token Burn Amount:</div>
           <div className="text-[#14F195] text-2xl font-bold">{formatCurrency(tokenBurnAmount)}</div>
         </div>
       </div>

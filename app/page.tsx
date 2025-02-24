@@ -4,10 +4,22 @@ import { Twitter, Disc, Globe } from "lucide-react"
 import { motion } from "framer-motion"
 import dynamic from "next/dynamic"
 import RewardsCalculator from "@/components/RewardsCalculator"
+import React, { useState, useEffect } from "react"
 
-const Scene3D = dynamic(() => import("@/components/Scene3D"), { ssr: false })
+const Scene3D = dynamic(() => import("@/components/Scene3D"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full bg-gradient-to-b from-[#9945FF] via-[#14F195] to-[#00C2FF] opacity-30" />
+  ),
+})
 
 export default function Home() {
+  const [is3DLoaded, setIs3DLoaded] = useState(false)
+
+  useEffect(() => {
+    console.log("Home component mounted")
+  }, [])
+
   const glowVariants = {
     initial: { opacity: 0, scale: 0.9 },
     animate: {
@@ -52,7 +64,13 @@ export default function Home() {
       {/* 1. Solana Money Glitch Section */}
       <section className="relative min-h-screen flex items-center">
         <div className="absolute inset-0">
-          <Scene3D />
+          <ErrorBoundary
+            fallback={
+              <div className="w-full h-full bg-gradient-to-b from-[#9945FF] via-[#14F195] to-[#00C2FF] opacity-30" />
+            }
+          >
+            <Scene3D />
+          </ErrorBoundary>
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
@@ -63,7 +81,7 @@ export default function Home() {
             className="w-full text-center space-y-16"
           >
             <motion.h1
-              className="bg-gradient-to-r from-[#9945FF] via-[#14F195] to-[#00C2FF] text-transparent bg-clip-text text-5xl md:text-7xl font-bold py-20"
+              className="bg-gradient-to-r from-[#9945FF] via-[#14F195] to-[#00C2FF] text-transparent bg-clip-text text-6xl md:text-8xl font-oswald tracking-tight uppercase font-bold py-20"
               variants={glowVariants}
               initial="initial"
               animate="animate"
@@ -71,7 +89,7 @@ export default function Home() {
               Solana Money Glitch
             </motion.h1>
             <div className="space-y-8">
-              <p className="text-xl md:text-2xl text-gray-300 bg-gradient-to-r from-purple-900/30 via-emerald-900/30 to-blue-900/30 backdrop-blur-sm p-4 rounded-lg mx-auto max-w-2xl border border-[#14F195]/20">
+              <p className="text-xl md:text-2xl font-medium text-gray-300 bg-gradient-to-r from-purple-900/30 via-emerald-900/30 to-blue-900/30 backdrop-blur-sm p-4 rounded-lg mx-auto max-w-2xl border border-[#14F195]/20">
                 First Deflationary Solana Reward Token
               </p>
               <p className="text-lg md:text-xl text-gray-400 bg-gradient-to-r from-purple-900/20 via-emerald-900/20 to-blue-900/20 backdrop-blur-sm p-4 rounded-lg mx-auto max-w-2xl border border-[#14F195]/10">
@@ -106,7 +124,7 @@ export default function Home() {
           className="container mx-auto px-4"
         >
           <motion.h2
-            className="bg-gradient-to-r from-[#9945FF] via-[#14F195] to-[#00C2FF] text-transparent bg-clip-text text-4xl md:text-5xl font-bold mb-12 text-center font-extrabold tracking-tight"
+            className="bg-gradient-to-r from-[#9945FF] via-[#14F195] to-[#00C2FF] text-transparent bg-clip-text text-5xl md:text-6xl font-oswald tracking-tight uppercase font-bold mb-12 text-center"
             variants={glowVariants}
             initial="initial"
             animate="animate"
@@ -127,7 +145,7 @@ export default function Home() {
               className="bg-[#020B1D] p-8 rounded-lg border border-[#14F195]/30 transition-transform"
               whileHover={{ scale: 1.02 }}
             >
-              <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-[#14F195] to-[#00C2FF] text-transparent bg-clip-text">
+              <h3 className="text-2xl font-oswald uppercase font-bold mb-6 bg-gradient-to-r from-[#14F195] to-[#00C2FF] text-transparent bg-clip-text">
                 How It Works
               </h3>
               <ul className="space-y-4 text-left">
@@ -151,7 +169,7 @@ export default function Home() {
               className="bg-[#020B1D] p-8 rounded-lg border border-[#14F195]/30 transition-transform"
               whileHover={{ scale: 1.02 }}
             >
-              <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-[#00C2FF] to-[#9945FF] text-transparent bg-clip-text">
+              <h3 className="text-2xl font-oswald uppercase font-bold mb-6 bg-gradient-to-r from-[#00C2FF] to-[#9945FF] text-transparent bg-clip-text">
                 Benefits
               </h3>
               <ul className="space-y-4 text-left">
@@ -183,7 +201,7 @@ export default function Home() {
           className="container mx-auto px-4"
         >
           <motion.h2
-            className="bg-gradient-to-r from-[#9945FF] via-[#14F195] to-[#00C2FF] text-transparent bg-clip-text text-4xl md:text-5xl font-bold mb-12 text-center font-extrabold tracking-tight"
+            className="bg-gradient-to-r from-[#9945FF] via-[#14F195] to-[#00C2FF] text-transparent bg-clip-text text-5xl md:text-6xl font-oswald tracking-tight uppercase font-bold mb-12 text-center"
             variants={glowVariants}
             initial="initial"
             animate="animate"
@@ -249,7 +267,7 @@ export default function Home() {
           className="container mx-auto px-4"
         >
           <motion.h2
-            className="bg-gradient-to-r from-[#9945FF] via-[#14F195] to-[#00C2FF] text-transparent bg-clip-text text-4xl md:text-5xl font-bold mb-12 text-center font-extrabold tracking-tight"
+            className="bg-gradient-to-r from-[#9945FF] via-[#14F195] to-[#00C2FF] text-transparent bg-clip-text text-5xl md:text-6xl font-oswald tracking-tight uppercase font-bold mb-12 text-center"
             variants={glowVariants}
             initial="initial"
             animate="animate"
@@ -330,5 +348,28 @@ export default function Home() {
       </section>
     </div>
   )
+}
+
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { hasError: false }
+  }
+
+  static getDerivedStateFromError(error) {
+    console.error("Error in Page ErrorBoundary:", error)
+    return { hasError: true }
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error("Page ErrorBoundary caught an error:", error, errorInfo)
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback
+    }
+    return this.props.children
+  }
 }
 
